@@ -10,3 +10,9 @@ Multivectors = "7984e3fa-4652-481f-a8e5-141db0974c74"
 SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[compat]
+Multivectors = "0"
+HalfEdges = "0"
+StaticArrays = "0, 1"
+julia = "^1.3"
