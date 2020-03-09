@@ -44,7 +44,7 @@ uuid = "d6f4376e-aef5-505a-96c1-9c027394607a"
 
 [[Multivectors]]
 deps = ["Combinatorics", "FunctionWrappers", "LinearAlgebra", "SparseArrays", "StaticArrays", "Test"]
-path = "../Multivectors"
+git-tree-sha1 = "84ba27438bfd411713d974a407da8ccea5766b82"
 uuid = "7984e3fa-4652-481f-a8e5-141db0974c74"
 version = "0.2.0"
 
