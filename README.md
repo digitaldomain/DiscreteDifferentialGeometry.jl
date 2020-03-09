@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/mewertd2/DiscreteDifferentialGeometry.jl.svg?branch=master)](https://travis-ci.com/mewertd2/DiscreteDifferentialGeometry.jl)
+[![codecov.io](https://codecov.io/github/mewertd2/DiscreteDifferentialGeometry.jl/coverage.svg?branch=master)](https://codecov.io/github/mewertd2/DiscreteDifferentialGeometry.jl?branch=master)
+
 # DiscreteDifferentialGeometry
 
 The `DiscreteDifferentialGeometry` [Julia](http://julialang.org) package defines Types and methods to implement Discrete Differential Geometry.
