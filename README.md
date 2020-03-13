@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.com/mewertd2/DiscreteDifferentialGeometry.jl.svg?branch=master)](https://travis-ci.com/mewertd2/DiscreteDifferentialGeometry.jl)
-[![codecov.io](https://codecov.io/github/mewertd2/DiscreteDifferentialGeometry.jl/coverage.svg?branch=master)](https://codecov.io/github/mewertd2/DiscreteDifferentialGeometry.jl?branch=master)
+[![Build Status](https://travis-ci.com/mewertd2/DiscreteDifferentialGeometry.jl.svg?branch=master)](https://travis-ci.com/digitaldomain/DiscreteDifferentialGeometry.jl)
+[![codecov.io](https://codecov.io/github/digitaldomain/DiscreteDifferentialGeometry.jl/coverage.svg?branch=master)](https://codecov.io/github/mewertd2/DiscreteDifferentialGeometry.jl?branch=master)
 
 # DiscreteDifferentialGeometry
 
