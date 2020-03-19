@@ -25,10 +25,9 @@ using DiscreteDifferentialGeometry
 using Multivectors
 using LinearAlgebra
 
-#!me several tests are failing.  
-# probably because we redifined the hodge star to satisfy a∧⋆(b) == (a⋅b)*𝑖
-# which is different that what we had before, but by all accounts the corrrect definition.
-#!me need to figure out what's going on.  maybe our definition of ⋅ is not the same as DEC course
+# NOTE: since we use a different inner product (left contraction) ⋆(1e₁₂) == -1e₁₂
+# NOTE: this is a different convention than DDG course: 
+# NOTE: see page 121 ( section 7.3 ) for an explaination: http://www.cs.cmu.edu/~kmcrane/Projects/DDG/paper.pdf
 
 module G2
   using Multivectors
@@ -116,8 +115,17 @@ zerofun(x,y...) = zero(x)
   # Exercize 13
   ϕ(x,y) = x*y+2*(y^2)
   α = ZForm{2}(ϕ, [(x,y)->y, (x,y)->x + 4y], [(x,y)->0 (x,y)->1 ; (x,y)->1 (x,y)->4])
-  #!me wrong result getting -ve orientation
-  #@test apply(Δ(α), 1e₁+1e₂) == 4
+
+  # ⋆(𝑑(α)) == -xe₁ + (y-4y)e₂
+  @test apply(⋆(𝑑(α)), 2.0e₂, 1.0e₁+1.0e₂) == -6.0
+  @test apply(⋆(𝑑(α)), 2.0e₁, 1.0e₁+1.0e₂) == -2.0
+
+  # 𝑑(⋆(𝑑(α))) = 4e₁∧e₂
+  # position doesn't matter
+  @test apply(𝑑(⋆(𝑑(α))), 42.0e₁-256.0e₂, 1.1e₁₂) == 4.4
+
+  # note: sign differs from DDG couse due to choice of inner product
+  @test apply(Δ(α), 1e₁+1e₂) == -4
 
   # http://brickisland.net/DDGSpring2019/wp-content/uploads/2019/02/DDG_458_SP19_Lecture08_DiscreteDifferentialForms-1.pdf 
   # Integrating a 1-Form over and Edge - Example
@@ -151,8 +159,7 @@ using .G3
 
   e₁, e₂, e₃, e₁₂, e₁₃, e₂₃, e₁₂₃ = alle( G3, 3)
 
-  #!me sign
-  #@test (1.0e₂∧1.0e₃)∧⋆(1.0e₂∧1.0e₃) == 1.0e₁₂₃ 
+  @test (1.0e₂∧1.0e₃)∧⋆(1.0e₂∧1.0e₃) == -1.0e₁₂₃ 
   k = 1.0e₂∧1.0e₃
   @test k∧⋆k == (k⋅k)*pseudoscalar(k)
 
@@ -161,22 +168,17 @@ using .G3
 
   u = 2.0e₁ + 2.0e₂; v = -2.0e₁ + 2.0e₂
   detuv = det(hcat(vcat(magnitude.(u),0.0), vcat(magnitude.(v),0.0), [0.0,0.0,magnitude.(⋆(u∧v))]))
-  #!me sign opposite
-  #@test detuv > 0 
+  @test detuv < 0 
   #two orthonormal vectors u1, u2, we ask that det(u1, u2, ⋆(u1 ∧ u2)) = 1
   u = normalize(u); v = normalize(v)
   detuv = det(hcat(vcat(magnitude.(u),0.0), vcat(magnitude.(v),0.0), [0.0,0.0,magnitude.(⋆(u∧v))]))
-  #!me sign opposite
-  #@test detuv ≈ 1
+  @test detuv ≈ -1
 
   u = -2.0e₂; v = 1.0e₃; uv = u∧v
   detuv = det(hcat([0.0,magnitude.(u),0.0], [0.0,0.0,magnitude.(v)], [magnitude.(⋆(uv)),0,0]))
-  #!me sign opposite
-  #@test detuv > 0
+  @test detuv < 0
 
-
-  #!me opposite sign
-  #@test ⋆(-1.0e₁∧1.0e₂ - 1.0e₁∧1.0e₃ - 2.0e₂∧1.0e₃) == -2.0e₁ + 1.0e₂ - 1.0e₃
+  @test ⋆(-1.0e₁∧1.0e₂ - 1.0e₁∧1.0e₃ - 2.0e₂∧1.0e₃) == 2.0e₁ - 1.0e₂ + 1.0e₃
   k = ⋆(-1.0e₁∧1.0e₂ - 1.0e₁∧1.0e₃ - 2.0e₂∧1.0e₃) 
   @test k∧⋆(k) == (k⋅k)*pseudoscalar(k)
 

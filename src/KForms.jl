@@ -151,9 +151,9 @@ function apply(α::KF, u::P, k::K) where{F<:ZForm, KF<:KVector{F},
 end
 
 apply(α::B, u, k::KF) where {F<:ZForm, KF<:KVector{F}, B<:Blade} = apply(KVector(α), u, k)
-apply(α, u, k::B) where {B<:Blade} = apply(α, u, KVector(k))
-apply(α::B, u, k) where {B<:Blade} = apply(KVector(α), u, k)
-apply(α::B1, u, k::B2) where {B1<:Blade, B2<:Blade} = apply(KVector(α), u, KVector(k))
+
+const CN = Union{KVector, Blade}
+apply(α::CN, u::CN, k::CN) = apply(KVector(α), KVector(u), KVector(k))  
 
 """
     apply(α, u)
