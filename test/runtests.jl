@@ -62,6 +62,19 @@ function cube()
   (Topology([1,2,3, 2,4,3, 3,4,6, 4,5,6, 2,5,4, 2,7,5, 7,8,5, 5,8,6, 1,3,6, 1,6,8, 1,8,2, 2,8,7]), P)
 end
 
+# not actually a D8, two tetrahedron glued together 
+function D8()
+  w = sqrt(2.0); peak = 0.8164965809277261; base = -0.4082482904638631;
+  P = [ -w/2 base 0.0
+       w/2 base 0.0
+       0.0 peak 0.0
+       0.0 0.0 peak-base
+       0.0 0.0 base-peak ]
+
+  P = SVector{3}.(eachrow(Float64.(P)))
+  (Topology([1,2,4, 3,4,2, 1,4,3, 1,5,2, 1,3,5, 5,3,2]), P)
+end
+
 @testset begin "interpolation 3D"
   e₁, e₂, e₃  = alle( G3, 3)[1:3]
 
